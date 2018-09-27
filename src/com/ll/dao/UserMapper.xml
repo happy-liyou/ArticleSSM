@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ll.dao.UserMapper">
+ <select id="queryUser" resultType="com.ll.bean.User">
+ 	select * from user where user_id=#{user_Id}
+ </select>
+ <select id="queryUsers" resultType="com.ll.bean.User">
+ 	select * from user
+ </select>
+ <insert id="insertUser">
+ 	insert into user(user_Id,user_Name,user_Password,user_Grade,
+ 	user_Heard,user_Sex,user_Type,user_Phone,user_Email,user_Contact)
+ 	values (#{user_Id},#{user_Name},#{user_Password},#{user_Grade},
+ 	#{user_Heard},#{user_Sex},#{user_Type},#{user_Phone},#{user_Email},#{user_Contact})
+ </insert>
+ 
+ <update id="updateUser">
+ 	update from user(user_Id,user_Name,user_Password,user_Grade,
+ 	user_Heard,user_Sex,user_Type,user_Phone,user_Email,user_Contact) values(#{user_Id},#{user_Name},#{user_Password},#{user_Grade},
+ 	#{user_Heard},#{user_Sex},#{user_Type},#{user_Phone},#{user_Email},#{user_Contact})
+ </update>
+ 
+ <select id="findUser" resultType="com.ll.bean.User">
+ 	select user_Name,user_Password from user 
+ 	where user_Name=#{user_Name} and user_Password=#{user_Password}
+ </select>	
+</mapper>

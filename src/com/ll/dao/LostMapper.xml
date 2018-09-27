@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ll.dao.LostMapper">
+
+	<select id="queryLost" resultMap="lostMap">
+		select * from lost where
+		lostId=#{lostId}
+	</select>
+	<resultMap type="com.ll.bean.Lost" id="lostMap">
+		<result property="lostId" column="lostId"/>
+		<result property="lostDescribe" column="lostDescribe"/>
+		<result property="lostTime" column="lostTime"/>
+		<result property="lostHead" column="lostHead"/>
+		<result property="lostSite1" column="lostSite1"/>
+		<result property="lostSite2" column="lostSite2"/>
+		<collection property="types" select="queryTypes" column="lostId" >
+		
+		</collection>
+	</resultMap>
+	
+	<update id="updateLost" >
+	
+	UPDATE lost SET	
+		lostDescribe=#{lostDescribe},
+		
+		lostTime=#{lostTime},
+		
+		lostHead=#{lostHead},
+
+		lostSite1=#{lostSite1},
+
+		lostSite2=#{lostSite2}
+		WHERE lostId=#{lostId}
+	
+		
+	</update>
+
+	<select id="queryAllLosts" resultMap="lostMap">
+		select * from lost
+	</select>
+
+	<insert id="insertLost" useGeneratedKeys="true" keyProperty="lostId" >
+		insert into lost(
+		lostDescribe,
+		lostTime,
+		lostHead,
+		lostSite1,
+		lostSite2
+		)
+		values(
+		#{lostDescribe},
+		#{lostTime},
+		#{lostHead},
+		#{lostSite1},
+		#{lostSite2}
+		)
+	</insert>
+
+	<select id="queryAllTypes" resultType="com.ll.bean.Type">
+		select * from type
+	</select>
+
+	<select id="queryTypes" resultType="com.ll.bean.Type">
+		select t.*
+		from losttype
+		lt,type t
+		where lt.tId=t.typeId and lt.lId=#{lId}
+	</select>
+
+	<insert id="insertLostType">
+		insert into losttype(lId,tId) values
+		<foreach collection="cids"  separator="," item="tId">
+			(#{lId},#{tId})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteLostType">
+	delete  from losttype where lId=#{lId}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
